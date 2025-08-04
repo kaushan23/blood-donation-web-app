@@ -11,6 +11,8 @@ import SplashScreen from './pages/SplashScreen';
 import ContactBlood from './pages/ContactBlood';
 import Stock from './pages/Stock';
 import StockResult from './pages/StockResult';
+import RegisterPage from './pages/RegisterPage';
+import Profile from './pages/Profile';
 import './App.css';
 
 function App() {
@@ -57,8 +59,9 @@ function App() {
           <Route path="/camps" element={<BloodCampsPage />} />
           <Route path="/contact-blood" element={<ContactBlood />} />
           <Route path="/stocks" element={<Stock/>} />
-          <Route path="/stock-result/:bloodType" element={<StockResult />} />
-          <Route path="/profile" element={<div>Profile Page</div>} />
+          <Route path="/register" element={<RegisterPage/>} />
+          <Route path="/stock-result/:bloodType" element={<StockResult/>} />
+          <Route path="/profile" element={<Profile/>} />
           <Route path="/change-password" element={<div>Change Password Page</div>} />
         </Routes>
       </div>

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import logo from '../assets/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
-import bell from '../assets/bell-icon.png'
+import bell from '../assets/nav_bar/bell-icon.png'
+import dropdown from '../assets/nav_bar/dropdown-icon.png'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,18 +59,13 @@ useEffect(() => {
                 className="profile-btn"
                 onClick={toggleProfileDropdown}
               >
-                My Profile
-                <svg 
-                  className={`dropdown-arrow ${isProfileDropdownOpen ? 'open' : ''}`}
+                My Profile                
+                <img src= {dropdown} alt="dropdown-icon" className={`drop-icon ${isProfileDropdownOpen ? 'open' : ''}`}
                   width="12" 
                   height="8" 
-                  viewBox="0 0 12 8" 
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                <img src="" alt="" />
-                  <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                  viewBox="0 0 12 8"                  
+                  fill="none"/>
+                  <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>               
               </button>
 
               {isProfileDropdownOpen && (

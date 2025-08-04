@@ -104,12 +104,12 @@
   transform: translateY(-1px);
 }
 
-.dropdown-arrow {
+.drop-icon {
   transition: transform 0.3s ease;
-  color: white !important;
+  color: white; 
 }
 
-.dropdown-arrow.open {
+.drop-icon.open {
   transform: rotate(180deg);
 }
 

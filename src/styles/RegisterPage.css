@@ -23,14 +23,8 @@
 }
 
 .register-logo {
-  width: 35px;
+  width: 150px;
   height: 35px;
-}
-
-.register-brand {
-  font-weight: 700;
-  font-size: 20px;
-  color: #4E0D0D;
 }
 
 .register-content {
@@ -39,7 +33,7 @@
   align-items: center;
   justify-content: center;
   padding: 15px;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .register-card {
@@ -48,105 +42,116 @@
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 85vh;
-  max-height: 85vh;
+  grid-template-columns: 1fr 1.2fr;
+  min-height: 85vh;
 }
 
 .register-image-section {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 15px;
+  background-image: url('../assets/SignIn-Register/register.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url('../assets/SignIn-Register/register.jpg');
-}
-
-.image-content {
-  position: relative;
-  text-align: center;
-}
-
-.register-hero-image {
-  display: none; /* Removed individual image since background image is used */
 }
 
 .register-form-section {
-  padding: 30px 25px;
+  padding: 25px 20px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+/* Step Indicator Styles */
+.step-indicator {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 15px;
-}
-
-.register-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #4E0D0D;
-  margin: 0 0 5px 0;
-  line-height: 1.2;
-}
-
-.register-subtitle {
-  color: #6c757d;
-  font-size: 12px;
-  margin: 0 0 15px 0;
-  line-height: 1.5;
-}
-
-.register-form {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 15px;
   gap: 10px;
 }
 
-.form-group {
+.step {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  gap: 4px;
 }
 
-.form-label {
+.step-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e9ecef;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 600;
-  color: #4E0D0D;
   font-size: 12px;
-  margin: 0;
 }
 
-.form-input {
-  padding: 10px 15px;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  font-size: 12px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  background: #fff;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #CD2F2F;
-  box-shadow: 0 0 0 2px rgba(205, 47, 47, 0.1);
-}
-
-.form-input::placeholder {
-  color: #adb5bd;
-}
-
-.register-button {
+.step.active .step-number {
   background: #CD2F2F;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
+  color: white;
+}
+
+.step-text {
+  font-size: 10px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.step.active .step-text {
+  color: #CD2F2F;
+  font-weight: 600;
+}
+
+.step-line {
+  width: 40px;
+  height: 2px;
+  background: #e9ecef;
+}
+
+/* Form Buttons */
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  width: 100%;
+  justify-content: center;
+}
+
+.back-button, .register-button {
+  padding: 10px 14px;
   border-radius: 8px;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
+  border: none;
+}
+
+.back-button {
+  background: #6c757d;
+  color: #fff;
+}
+
+.back-button:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+.register-button {
+  background: #CD2F2F;
+  color: #fff;
 }
 
 .register-button:hover {
@@ -154,18 +159,72 @@
   transform: translateY(-1px);
 }
 
-.register-button:active {
-  transform: translateY(0);
+.register-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #4E0D0D;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+.register-subtitle {
+  color: #6c757d;
+  font-size: 12px;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Reduced gap between inputs */
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px; /* Reduced gap */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px; /* Reduced gap */
+}
+
+.form-label {
+  font-weight: 600;
+  color: #4E0D0D;
+  font-size: 11px;
+}
+
+.form-input, .form-select, .form-textarea {
+  padding: 8px 10px;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  font-size: 11px;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: #CD2F2F;
+  box-shadow: 0 0 0 2px rgba(205, 47, 47, 0.1);
+  outline: none;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 40px;
 }
 
 .register-footer {
-  margin-top: 15px;
+  margin-top: 10px;
   text-align: center;
 }
 
 .login-prompt {
   color: #6c757d;
-  margin: 0;
   font-size: 10px;
 }
 
@@ -173,7 +232,6 @@
   color: #CD2F2F;
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.2s ease;
 }
 
 .login-link:hover {
@@ -181,18 +239,22 @@
   text-decoration: underline;
 }
 
+/* Responsive Adjustments */
 @media (max-width: 992px) {
   .register-card {
     grid-template-columns: 1fr;
-    max-width: 400px;
-    max-height: 80vh;
+    max-width: 500px;
   }
   
   .register-image-section {
     order: -1;
-    padding: 15px;
     min-height: 150px;
-    background-size: contain;
+    background-size: cover;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 }
 
@@ -200,38 +262,20 @@
   .register-header {
     padding: 10px 20px;
   }
-  
+
   .register-content {
     padding: 10px;
   }
-  
+
   .register-form-section {
     padding: 20px 15px;
   }
-  
+
   .register-title {
     font-size: 20px;
   }
-  
-  .register-image-section {
-    min-height: 120px;
-  }
-}
 
-@media (max-width: 480px) {
-  .register-form-section {
-    padding: 15px 10px;
-  }
-  
-  .register-title {
-    font-size: 18px;
-  }
-  
-  .register-image-section {
-    min-height: 100px;
-  }
-  
-  .login-prompt {
-    font-size: 9px;
+  .form-input, .form-select, .form-textarea {
+    font-size: 10px;
   }
 }
