@@ -13,6 +13,7 @@ import Stock from './pages/Stock';
 import StockResult from './pages/StockResult';
 import RegisterPage from './pages/RegisterPage';
 import Profile from './pages/Profile';
+import ChangePassword from './pages/ChangePassword';
 import './App.css';
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
           <Route path="/search-results" element={<SearchResultsPage />} />
           <Route path="/camps" element={<BloodCampsPage />} />
           <Route path="/contact-blood" element={<ContactBlood />} />
+          <Route path="/cpassword" element={<ChangePassword />} />
           <Route path="/stocks" element={<Stock/>} />
           <Route path="/register" element={<RegisterPage/>} />
           <Route path="/stock-result/:bloodType" element={<StockResult/>} />
