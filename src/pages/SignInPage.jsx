@@ -1,43 +1,32 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+// import users from "../assets/data/userDetails";
+  // Import users data
 import '../styles/SignInPage.css';
 import logo from '../assets/logo-icon.png'; 
 import signin from '../assets/SignIn-Register/signin.jpg'; 
+import { UserContext } from '../context/UserContext';
 
 const SignInPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const navigate = useNavigate();
-
-  // Hardcoded credentials
-  const adminCredentials = {
-    email: 'admin@example.com',
-    password: 'admin123',
-    role: 'ADMIN'
-  };
-
-  const userCredentials = {
-    email: 'user@example.com',
-    password: 'user123',
-    role: 'USER'
-  };
-
-  const handleSubmit = (e) => {
+  const { login } = useContext(UserContext);
+ const handleSubmit = (e) => {
     e.preventDefault();
 
     const { email, password } = formData;
 
-    // Admin login check
-    if (email === adminCredentials.email && password === adminCredentials.password) {
-      localStorage.setItem('userData', JSON.stringify(adminCredentials));
-      navigate('/home'); // Redirect to admin interface
-    } 
-    // User login check
-    else if (email === userCredentials.email && password === userCredentials.password) {
-      localStorage.setItem('userData', JSON.stringify(userCredentials));
-      navigate('/home'); // Redirect to user interface
-    } 
-    // Invalid login
-    else {
+    const success = login(email, password); // use context login
+
+    if (success) {
+      // get the logged-in user from localStorage or from context (better from context)
+      const loggedUser = JSON.parse(localStorage.getItem('userData'));
+      if (loggedUser.role === 'admin') {
+        navigate('/home');
+      } else if (loggedUser.role === 'user') {
+        navigate('/home');
+      }
+    } else {
       alert('Invalid email or password');
     }
   };
@@ -45,7 +34,6 @@ const SignInPage = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   return (
     <div className="signin-page">
       <div className="signin-container">
@@ -53,7 +41,8 @@ const SignInPage = () => {
           <img 
             src={logo}
             alt="Blood donation logo" 
-            className="signin-logo"/>
+            className="signin-logo"
+          />
           <span className="signin-brand">LifeLink</span>
         </div>
 
@@ -62,7 +51,7 @@ const SignInPage = () => {
             <div className="signin-image-section">
               <div className="image-content">
                 <img 
-                  src= {signin}
+                  src={signin}
                   alt="Medical professionals"
                   className="signin-hero-image"
                 />
@@ -111,16 +100,14 @@ const SignInPage = () => {
                 </div>
 
                 <button type="submit" className="signin-button">
-                  Sign In
+                  <Link to="/home"> Sign In</Link>                  
                 </button>
               </form>
 
               <div className="signin-footer">
                 <p className="signup-prompt">
                   Don't have an account? 
-                  <a href="#" className="signup-link">
-                    <Link to="/register" className="login-link"> Sign up</Link>
-                  </a>
+                  <Link to="/register" className="signup-link"> Sign up</Link>
                 </p>
               </div>
             </div>

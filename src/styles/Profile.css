@@ -173,11 +173,12 @@
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  justify-content: start;
 }
 
 .info-value {
   font-size: 1rem;
-  color: #333;
+  color: #212529 !important;
   padding: 0.75rem 0;
 }
 
@@ -218,10 +219,11 @@
 
 .stat-card {
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  padding: 2rem;
+  padding: 2rem 1rem;
   border-radius: 12px;
   text-align: center;
   border: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .stat-number {
@@ -229,12 +231,16 @@
   font-weight: 700;
   color: #dc3545;
   margin-bottom: 0.5rem;
+  display: block;
 }
 
 .stat-label {
   font-size: 1rem;
-  color: #666;
-  font-weight: 500;
+  color: #333 !important;
+  font-weight: 600;
+  display: block;
+  line-height: 1.2;
+  margin: 0;
 }
 
 /* Settings */

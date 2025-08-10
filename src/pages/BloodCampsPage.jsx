@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/BloodCampsPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../components/Navbar'; // Import the Navbar component
 
 const BloodCampsPage = () => {
+  const [userRole, setUserRole] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Get user data from localStorage to determine role
+    const storedUserData = JSON.parse(localStorage.getItem('userData'));
+    if (storedUserData) {
+      setUserRole(storedUserData.role);
+    }
+  }, []);
+
   // Sample camp data - you can replace this with API data
   const camps = [
     {
@@ -79,13 +91,29 @@ const BloodCampsPage = () => {
     // Add your registration logic here
   };
 
+  const handleAddCamp = () => {
+    navigate('/add-camp');
+  };
+
   return (
     <div className="blood-donation-camps-page">
       {/* Use the Navbar Component */}
       <Navbar />
 
+      {/* Add Camp Button - Only visible for admins */}
+      {userRole === 'admin' && (
+        <div className="add-camp-section">
+          <button 
+            className="add-camp-btn"
+            onClick={handleAddCamp}
+          >
+            Add Camp
+          </button>
+        </div>
+      )}
+
       {/* Camps List Section */}
-      <div className="camps-list-section">
+      <div className={`camps-list-section ${userRole === 'admin' ? 'with-add-btn' : ''}`}>
         <div className="camps-list-container">
           <div className="camps-grid">
             {camps.map((camp) => (
@@ -134,12 +162,15 @@ const BloodCampsPage = () => {
                   </div>
                 </div>
 
-                <button 
-                  className="register-btn"
-                  onClick={() => handleRegister(camp.name)}
-                >
-                  Register
-                </button>
+                {/* Register Button - Only visible for regular users */}
+                {userRole !== 'admin' && (
+                  <button 
+                    className="register-btn"
+                    onClick={() => handleRegister(camp.name)}
+                  >
+                    Register
+                  </button>
+                )}
               </div>
             ))}
           </div>

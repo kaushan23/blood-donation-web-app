@@ -14,7 +14,10 @@ import StockResult from './pages/StockResult';
 import RegisterPage from './pages/RegisterPage';
 import Profile from './pages/Profile';
 import ChangePassword from './pages/ChangePassword';
+import RequestReport from './pages/RequestReport';
+import AddCampPage from './pages/AddCampPage';
 import './App.css';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -47,24 +50,127 @@ function App() {
     return <SplashScreen onComplete={handleSplashComplete} />;
   }
 
-  return (
+ return (
     <Router>
       <div className="app">
         <Routes>
+          {/* Public routes */}
           <Route path="/" element={<SignInPage />} />
-          <Route path="/home" element={<LandingPage />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/donor-list" element={<DonorListPage />} />
-          <Route path="/search-donor" element={<SearchDonorPage />} />
-          <Route path="/search-results" element={<SearchResultsPage />} />
-          <Route path="/camps" element={<BloodCampsPage />} />
-          <Route path="/contact-blood" element={<ContactBlood />} />
-          <Route path="/cpassword" element={<ChangePassword />} />
-          <Route path="/stocks" element={<Stock/>} />
-          <Route path="/register" element={<RegisterPage/>} />
-          <Route path="/stock-result/:bloodType" element={<StockResult/>} />
-          <Route path="/profile" element={<Profile/>} />
-          <Route path="/change-password" element={<div>Change Password Page</div>} />
+          <Route path="/register" element={<RegisterPage />} />
+
+          {/* Protected routes */}
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <LandingPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <ProtectedRoute>
+                <AboutUs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/donor-list"
+            element={
+              <ProtectedRoute>
+                <DonorListPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/search-donor"
+            element={
+              <ProtectedRoute>
+                <SearchDonorPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/search-results"
+            element={
+              <ProtectedRoute>
+                <SearchResultsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/request-report"
+            element={
+              <ProtectedRoute>
+                <RequestReport/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/add-camp"
+            element={
+              <ProtectedRoute>
+                <AddCampPage/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/camps"
+            element={
+              <ProtectedRoute>
+                <BloodCampsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/contact-blood"
+            element={
+              <ProtectedRoute>
+                <ContactBlood />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/cpassword"
+            element={
+              <ProtectedRoute>
+                <ChangePassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/stocks"
+            element={
+              <ProtectedRoute>
+                <Stock />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/stock-result/:bloodType"
+            element={
+              <ProtectedRoute>
+                <StockResult />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/change-password"
+            element={
+              <ProtectedRoute>
+                <div>Change Password Page</div>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </Router>

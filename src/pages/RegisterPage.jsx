@@ -15,7 +15,7 @@ const RegisterPage = () => {
     medicalHistory: '',
     password: '',
     confirmPassword: '',
-    role: 'USER' // Default role
+    role: 'user' // Default role
   });
   
   const navigate = useNavigate();

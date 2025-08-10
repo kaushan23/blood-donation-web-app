@@ -1,0 +1,20 @@
+// src/data/userDetails.jsx
+
+const users = [
+  {
+    id: 1,
+    name: "Admin User",
+    email: "admin@example.com",
+    password: "admin123",
+    role: "admin",
+  },
+  {
+    id: 2,
+    name: "Regular User",
+    email: "user@example.com",
+    password: "user123",
+    role: "user",
+  },
+];
+
+export default users;

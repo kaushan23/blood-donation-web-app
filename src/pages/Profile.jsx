@@ -19,14 +19,14 @@ const Profile = () => {
     // Set default profile data based on user role
     const defaultUserData = {
       ...storedUserData,
-      name: storedUserData.role === 'ADMIN' ? 'Admin User' : 'John Doe',
-      phone: storedUserData.role === 'ADMIN' ? '+1 (555) 123-4567' : '+1 (555) 987-6543',
-      address: storedUserData.role === 'ADMIN' ? '123 Admin Street, Admin City, AC 12345' : '456 User Avenue, User City, UC 67890',
-      dateOfBirth: storedUserData.role === 'ADMIN' ? '1980-01-15' : '1990-05-20',
-      bloodType: storedUserData.role === 'ADMIN' ? 'O+' : 'A+',
-      lastDonation: storedUserData.role === 'ADMIN' ? 'N/A' : '2024-06-15',
-      donationCount: storedUserData.role === 'ADMIN' ? 0 : 12,
-      medicalHistory: storedUserData.role === 'ADMIN' ? 'None' : 'No major medical conditions'
+      name: storedUserData.role === 'admin' ? 'Admin User' : 'John Doe',
+      phone: storedUserData.role === 'admin' ? '+1 (555) 123-4567' : '+1 (555) 987-6543',
+      address: storedUserData.role === 'admin' ? '123 Admin Street, Admin City, AC 12345' : '456 User Avenue, User City, UC 67890',
+      dateOfBirth: storedUserData.role === 'admin' ? '1980-01-15' : '1990-05-20',
+      bloodType: storedUserData.role === 'admin' ? 'O+' : 'A+',
+      lastDonation: storedUserData.role === 'admin' ? 'N/A' : '2024-06-15',
+      donationCount: storedUserData.role === 'admin' ? 0 : 12,
+      medicalHistory: storedUserData.role === 'admin' ? 'None' : 'No major medical conditions'
     };
 
     setUserData(defaultUserData);
@@ -75,7 +75,7 @@ const Profile = () => {
             </div>
             <div className="profile-info">
               <h1 className="profile-name">{userData.name}</h1>
-              <p className="profile-role">{userData.role === 'ADMIN' ? 'System Administrator' : 'Blood Donor'}</p>
+              <p className="profile-role">{userData.role === 'admin' ? 'System Administrator' : 'Blood Donor'}</p>
               <span className={`role-badge ${userData.role.toLowerCase()}`}>
                 {userData.role}
               </span>
@@ -181,7 +181,7 @@ const Profile = () => {
             </div>
 
             {/* Medical Information Section - Only for regular users */}
-            {userData.role !== 'ADMIN' && (
+            {userData.role !== 'admin' && (
               <div className="profile-section">
                 <h2 className="section-title">Medical Information</h2>
                 <div className="info-grid">
@@ -237,7 +237,7 @@ const Profile = () => {
             )}
 
             {/* Admin Dashboard Section - Only for admins */}
-            {userData.role === 'ADMIN' && (
+            {userData.role === 'admin' && (
               <div className="profile-section">
                 <h2 className="section-title">Admin Dashboard</h2>
                 <div className="admin-stats">

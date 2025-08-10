@@ -29,11 +29,11 @@ const StockResult = () => {
   };
 
   const visitSearchDonor = () => {
-    navigate('/search-donor');
+    navigate('/donor-list');
   };
 
   const visitRequestDonor = () => {
-    navigate('/donor-list');
+    navigate('/request-report');
   };
 
   const getStockStatus = (count) => {
@@ -72,7 +72,7 @@ const StockResult = () => {
               </div>
             </div>
 
-            <div className="stats-grid">
+            {/* <div className="stats-grid">
               <div className="stat-card">
                 <div className="stat-icon donors">👥</div>
                 <div className="stat-info">
@@ -96,7 +96,7 @@ const StockResult = () => {
                   <span className="stat-label">Urgent Requests</span>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="action-cards">
               <div className="action-card request">

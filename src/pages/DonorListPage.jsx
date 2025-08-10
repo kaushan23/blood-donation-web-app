@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/DonorListPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from '../components/Navbar'; // Import the Navbar component
+import Navbar from '../components/Navbar';
 
 const DonorListPage = () => {
-  // Sample donor data - you can replace this with API data
+  // Sample donor data
   const donors = [
     {
       id: 1,
@@ -74,21 +74,155 @@ const DonorListPage = () => {
     }
   ];
 
+  const [selectedBloodGroup, setSelectedBloodGroup] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [isBloodGroupOpen, setIsBloodGroupOpen] = useState(false);
+  const [isLocationOpen, setIsLocationOpen] = useState(false);
+
+  const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
+  const locations = ['Colombo', 'Kandy', 'Galle', 'Jaffna', 'Negombo', 'Matara', 'Kalutara', 'Gampaha', 'Kurunegala', 'Anuradhapura'];
+
+  const handleBloodGroupSelect = (bloodGroup) => {
+    setSelectedBloodGroup(bloodGroup);
+    setIsBloodGroupOpen(false);
+  };
+
+  const handleLocationSelect = (location) => {
+    setSelectedLocation(location);
+    setIsLocationOpen(false);
+  };
+
+  // const handleSearch = () => {
+  //   if (!selectedBloodGroup || !selectedLocation) {
+  //     alert('Please select both blood group and location');
+  //     return;
+  //   }
+  // };
+
   const handleRequest = (donorName) => {
     alert(`Request sent to ${donorName}`);
-    // Add your request logic here
   };
+
+  // Filter donors based on search criteria
+  const filteredDonors = donors.filter(donor => 
+    (selectedBloodGroup ? donor.bloodGroup === selectedBloodGroup : true) &&
+    (selectedLocation ? donor.address === selectedLocation : true)
+  );
+
+  // Close dropdowns when clicking outside
+  const handleOutsideClick = (e) => {
+    if (!e.target.closest('.dropdown-container')) {
+      setIsBloodGroupOpen(false);
+      setIsLocationOpen(false);
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, []);
 
   return (
     <div className="donor-list-page">
-      {/* Use the Navbar Component */}
+      {/* Navigation Bar */}
       <Navbar />
+
+      {/* Horizontal Search Section */}
+      <div className="search-sectionn">
+        <div className="search-container">
+          <div className="search-form-horizontal">
+            <div className="form-group-horizontal">
+              {/* <label className="form-label">Blood Group</label> */}
+              <div className="dropdown-container">
+                <div 
+                  className={`custom-dropdown ${isBloodGroupOpen ? 'open' : ''}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsBloodGroupOpen(!isBloodGroupOpen);
+                    setIsLocationOpen(false);
+                  }}
+                >
+                  <span className="dropdown-selected">
+                    {selectedBloodGroup || 'Blood Group'}
+                  </span>
+                  <span className="dropdown-arrow">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </span>
+                </div>
+                {isBloodGroupOpen && (
+                  <div className="dropdown-options">
+                    {bloodGroups.map((bloodGroup) => (
+                      <div
+                        key={bloodGroup}
+                        className="dropdown-option"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleBloodGroupSelect(bloodGroup);
+                        }}
+                      >
+                        {bloodGroup}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="form-group-horizontal">
+              {/* <label className="form-label">Location</label> */}
+              <div className="dropdown-container">
+                <div 
+                  className={`custom-dropdown ${isLocationOpen ? 'open' : ''}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsLocationOpen(!isLocationOpen);
+                    setIsBloodGroupOpen(false);
+                  }}
+                >
+                  <span className="dropdown-selected">
+                    {selectedLocation || 'Location'}
+                  </span>
+                  <span className="dropdown-arrow">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </span>
+                </div>
+                {isLocationOpen && (
+                  <div className="dropdown-options">
+                    {locations.map((location) => (
+                      <div
+                        key={location}
+                        className="dropdown-option"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleLocationSelect(location);
+                        }}
+                      >
+                        {location}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* <div className="search-button-container">
+              <button className="search-btn" onClick={handleSearch}>
+                SEARCH
+              </button>
+            </div> */}
+          </div>
+        </div>
+      </div>
 
       {/* Donor List Section */}
       <div className="donor-list-section">
         <div className="donor-list-container">
           <div className="donors-grid">
-            {donors.map((donor) => (
+            {filteredDonors.map((donor) => (
               <div key={donor.id} className="donor-card">
                 <div className="donor-avatar">
                   <div className="avatar-icon">
@@ -101,35 +235,35 @@ const DonorListPage = () => {
                 
                 <div className="donor-info">
                   <div className="info-row">
-                    <span className="info-label">Name :</span>
+                    <span className="info-label">NAME :</span>
                     <span className="info-value">{donor.name}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">Gender :</span>
+                    <span className="info-label">GENDER :</span>
                     <span className="info-value">{donor.gender}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">Blood Group :</span>
+                    <span className="info-label">BLOOD GROUP :</span>
                     <span className="info-value">{donor.bloodGroup}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">Mobile Number :</span>
+                    <span className="info-label">MOBILE NUMBER :</span>
                     <span className="info-value">{donor.mobile}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">E-mail :</span>
+                    <span className="info-label">E-MAIL :</span>
                     <span className="info-value">{donor.email}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">Age :</span>
+                    <span className="info-label">AGE :</span>
                     <span className="info-value">{donor.age}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">Address :</span>
+                    <span className="info-label">ADDRESS :</span>
                     <span className="info-value">{donor.address}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">Message :</span>
+                    <span className="info-label">MESSAGE :</span>
                     <span className="info-value">{donor.message}</span>
                   </div>
                 </div>

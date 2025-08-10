@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 const ContactBlood = () => {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
+    location: '',
     phone: '',
     message: '',
     bloodGroup: ''
@@ -110,11 +110,11 @@ const ContactBlood = () => {
 
                 <div className="form-group">
                   <input
-                    type="email"
-                    name="email"
+                    type="address"
+                    name="address"
                     className="form-input"
-                    placeholder="E-mail Address"
-                    value={formData.email}
+                    placeholder="Location"
+                    value={formData.location}
                     onChange={handleChange}
                     required
                   />
