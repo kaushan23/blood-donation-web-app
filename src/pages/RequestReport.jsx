@@ -22,94 +22,118 @@ const RequestReport = () => {
     }
   }, []);
 
+  const REQUIRED_FIELDS = ['patientName', 'doctorName', 'doctorId', 'bloodType', 'wardNumber', 'status'];
+
+  const isValidRequest = (request) => {
+    return REQUIRED_FIELDS.every(field => request[field]);
+  };
+
   const loadAllRequests = () => {
     setLoading(true);
-    
     // Admin sees all requests from all users
-    const allRequests = JSON.parse(localStorage.getItem('bloodRequests')) || [];
+    let allRequests = JSON.parse(localStorage.getItem('bloodRequests')) || [];
 
-    // If no requests exist, create some sample data with different users
-    if (allRequests.length === 0) {
+    // If no requests exist or requests are missing required fields, create sample data
+    if (allRequests.length === 0 || allRequests.some(r => !isValidRequest(r))) {
       const sampleRequests = [
         {
           id: 'REQ001',
           userId: 'user1',
-          name: 'John Doe',
-          location: 'General Hospital, Colombo',
-          phoneNumber: '+94 77 123 4567',
+          patientName: 'John Doe',
+          doctorName: 'Dr. Smith Williams',
+          doctorId: 'DOC001',
+          bloodType: 'A+',
+          wardNumber: 'W-204',
           status: 'pending'
         },
         {
           id: 'REQ002',
           userId: 'user2',
-          name: 'Jane Smith',
-          location: 'Lanka Hospital, Colombo',
-          phoneNumber: '+94 77 234 5678',
+          patientName: 'Jane Smith',
+          doctorName: 'Dr. Emily Johnson',
+          doctorId: 'DOC002',
+          bloodType: 'O-',
+          wardNumber: 'W-105',
           status: 'approved'
         },
         {
           id: 'REQ003',
           userId: 'user3',
-          name: 'Michael Johnson',
-          location: 'Nawaloka Hospital, Colombo',
-          phoneNumber: '+94 77 345 6789',
+          patientName: 'Michael Johnson',
+          doctorName: 'Dr. David Brown',
+          doctorId: 'DOC003',
+          bloodType: 'B+',
+          wardNumber: 'W-301',
           status: 'not_available'
         },
         {
           id: 'REQ004',
           userId: 'user1',
-          name: 'John Doe',
-          location: 'Apollo Hospital, Colombo',
-          phoneNumber: '+94 77 123 4567',
+          patientName: 'Sarah Wilson',
+          doctorName: 'Dr. Smith Williams',
+          doctorId: 'DOC001',
+          bloodType: 'AB+',
+          wardNumber: 'W-108',
           status: 'pending'
+        },
+        {
+          id: 'REQ005',
+          userId: 'user4',
+          patientName: 'Robert Davis',
+          doctorName: 'Dr. Lisa Garcia',
+          doctorId: 'DOC004',
+          bloodType: 'O+',
+          wardNumber: 'W-215',
+          status: 'approved'
         }
       ];
-
       localStorage.setItem('bloodRequests', JSON.stringify(sampleRequests));
       setRequests(sampleRequests);
     } else {
-      setRequests(allRequests);
+      // Only show requests with all required fields
+      setRequests(allRequests.filter(isValidRequest));
     }
-
     setLoading(false);
   };
 
   const loadUserRequests = (userId) => {
     setLoading(true);
-    
-    // Get requests from localStorage or create sample data
     const allRequests = JSON.parse(localStorage.getItem('bloodRequests')) || [];
-    const userRequests = allRequests.filter(request => request.userId === userId);
-
-    // If no requests exist, create some sample data
+    let userRequests = allRequests.filter(request => request.userId === userId && isValidRequest(request));
+    // If no valid requests exist, create sample data
     if (userRequests.length === 0 && userId) {
       const sampleRequests = [
         {
           id: 'REQ001',
           userId: userId,
-          name: currentUser?.name || 'John Doe',
-          location: 'General Hospital, Colombo',
-          phoneNumber: '+94 77 123 4567',
+          patientName: 'John Doe',
+          doctorName: currentUser?.name || 'Dr. Smith Williams',
+          doctorId: 'DOC001',
+          bloodType: 'A+',
+          wardNumber: 'W-204',
           status: 'approved'
         },
         {
           id: 'REQ002',
           userId: userId,
-          name: currentUser?.name || 'John Doe',
-          location: 'Lanka Hospital, Colombo',
-          phoneNumber: '+94 77 123 4567',
+          patientName: 'Jane Smith',
+          doctorName: currentUser?.name || 'Dr. Smith Williams',
+          doctorId: 'DOC001',
+          bloodType: 'O-',
+          wardNumber: 'W-105',
           status: 'pending'
         },
         {
           id: 'REQ003',
           userId: userId,
-          name: currentUser?.name || 'John Doe',
-          location: 'Nawaloka Hospital, Colombo',
-          phoneNumber: '+94 77 123 4567',
+          patientName: 'Michael Johnson',
+          doctorName: currentUser?.name || 'Dr. Smith Williams',
+          doctorId: 'DOC001',
+          bloodType: 'B+',
+          wardNumber: 'W-301',
           status: 'not_available'
         }
       ];
-
       // Save sample requests to localStorage
       const updatedAllRequests = [...allRequests, ...sampleRequests];
       localStorage.setItem('bloodRequests', JSON.stringify(updatedAllRequests));
@@ -117,7 +141,6 @@ const RequestReport = () => {
     } else {
       setRequests(userRequests);
     }
-
     setLoading(false);
   };
 
@@ -207,18 +230,22 @@ const RequestReport = () => {
             <table className="requests-table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Location</th>
-                  <th>Phone Number</th>
+                  <th>Patient Name</th>
+                  <th>Doctor Name</th>
+                  <th>Doctor ID</th>
+                  <th>Blood Type</th>
+                  <th>Ward Number</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 {requests.map((request) => (
                   <tr key={request.id}>
-                    <td data-label="Name">{request.name}</td>
-                    <td data-label="Location">{request.location}</td>
-                    <td data-label="Phone Number">{request.phoneNumber}</td>
+                    <td data-label="Patient Name">{request.patientName}</td>
+                    <td data-label="Doctor Name">{request.doctorName}</td>
+                    <td data-label="Doctor ID">{request.doctorId}</td>
+                    <td data-label="Blood Type">{request.bloodType}</td>
+                    <td data-label="Ward Number">{request.wardNumber}</td>
                     <td data-label="Status">
                       {userRole === 'admin'
                         ? getStatusDropdown(request)

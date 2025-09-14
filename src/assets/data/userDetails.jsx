@@ -15,6 +15,13 @@ const users = [
     password: "user123",
     role: "user",
   },
+  {
+    id: 3,
+    name: "Doctor User",
+    email: "doctor@example.com",
+    password: "doctor123",
+    role: "doctor",
+  },
 ];
 
 export default users;

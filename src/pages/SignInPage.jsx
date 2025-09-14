@@ -1,7 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import users from "../assets/data/userDetails";
-  // Import users data
 import '../styles/SignInPage.css';
 import logo from '../assets/logo-icon.png'; 
 import signin from '../assets/SignIn-Register/signin.jpg'; 
@@ -24,6 +22,8 @@ const SignInPage = () => {
       if (loggedUser.role === 'admin') {
         navigate('/home');
       } else if (loggedUser.role === 'user') {
+        navigate('/home');
+      }else if (loggedUser.role === 'doctor') {
         navigate('/home');
       }
     } else {

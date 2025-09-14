@@ -5,7 +5,7 @@
 }
 
 .request-report-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 120px 20px 40px 20px;
 }
@@ -37,25 +37,29 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
 }
 
 .requests-table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 800px;
 }
 
 .requests-table th {
   background-color: #CD2F2F;
   color: white;
-  padding: 16px;
+  padding: 16px 12px;
   text-align: left;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 .requests-table td {
-  padding: 16px;
+  padding: 16px 12px;
   border-bottom: 1px solid #e9ecef;
+  font-size: 0.9rem;
 }
 
 .requests-table tbody tr:hover {
@@ -66,11 +70,46 @@
   border-bottom: none;
 }
 
+/* Column specific widths */
+.requests-table th:nth-child(1),
+.requests-table td:nth-child(1) {
+  width: 18%;
+}
+
+.requests-table th:nth-child(2),
+.requests-table td:nth-child(2) {
+  width: 20%;
+}
+
+.requests-table th:nth-child(3),
+.requests-table td:nth-child(3) {
+  width: 12%;
+}
+
+.requests-table th:nth-child(4),
+.requests-table td:nth-child(4) {
+  width: 12%;
+  text-align: center;
+  font-weight: 600;
+  color: #CD2F2F;
+}
+
+.requests-table th:nth-child(5),
+.requests-table td:nth-child(5) {
+  width: 15%;
+  text-align: center;
+}
+
+.requests-table th:nth-child(6),
+.requests-table td:nth-child(6) {
+  width: 20%;
+}
+
 /* Status Badges */
 .status-badge {
   padding: 6px 12px;
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   display: inline-block;
 }
@@ -98,7 +137,7 @@
   padding: 8px 12px;
   border: 2px solid #e9ecef;
   border-radius: 4px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   background-color: white;
   cursor: pointer;
@@ -129,6 +168,23 @@
   color: #6c757d;
 }
 
+/* Tablet Responsiveness */
+@media (max-width: 1024px) {
+  .request-report-container {
+    max-width: 100%;
+    padding: 110px 15px 30px 15px;
+  }
+
+  .requests-table {
+    font-size: 0.85rem;
+  }
+
+  .requests-table th,
+  .requests-table td {
+    padding: 12px 8px;
+  }
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .request-report-container {
@@ -140,6 +196,14 @@
   }
 
   /* Mobile Table - Card Layout */
+  .table-container {
+    overflow-x: visible;
+  }
+
+  .requests-table {
+    min-width: unset;
+  }
+
   .requests-table thead {
     display: none;
   }
@@ -149,6 +213,7 @@
   .requests-table tr,
   .requests-table td {
     display: block;
+    width: 100%;
   }
 
   .requests-table tr {
@@ -166,17 +231,31 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 0.9rem;
   }
 
   .requests-table td:before {
     content: attr(data-label) ": ";
     font-weight: 600;
     color: #495057;
-    min-width: 100px;
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+
+  /* Special styling for blood type in mobile */
+  .requests-table td[data-label="Blood Type"] {
+    color: #CD2F2F;
+    font-weight: 600;
+  }
+
+  .requests-table td[data-label="Ward Number"] {
+    font-weight: 500;
   }
 
   .status-badge {
     margin-left: auto;
+    font-size: 0.8rem;
+    padding: 4px 8px;
   }
 
   .status-dropdown {
@@ -196,13 +275,43 @@
     padding: 12px;
   }
 
+  .requests-table td {
+    font-size: 0.85rem;
+  }
+
   .requests-table td:before {
-    min-width: 80px;
-    font-size: 0.9rem;
+    min-width: 100px;
+    font-size: 0.85rem;
   }
 
   .status-badge {
+    font-size: 0.75rem;
+    padding: 3px 6px;
+  }
+
+  .status-dropdown {
+    font-size: 0.75rem;
+    padding: 5px 8px;
+    min-width: 90px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  .request-report-container {
+    padding: 90px 10px 20px 10px;
+  }
+
+  .requests-table tr {
+    padding: 10px;
+  }
+
+  .requests-table td:before {
+    min-width: 80px;
     font-size: 0.8rem;
-    padding: 4px 8px;
+  }
+
+  .requests-table td {
+    font-size: 0.8rem;
   }
 }

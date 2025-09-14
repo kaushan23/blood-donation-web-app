@@ -16,8 +16,10 @@ import Profile from './pages/Profile';
 import ChangePassword from './pages/ChangePassword';
 import RequestReport from './pages/RequestReport';
 import AddCampPage from './pages/AddCampPage';
+import DoctorManagement from './pages/DoctorManagement';
 import './App.css';
 import ProtectedRoute from './components/ProtectedRoute';
+import DoctorRequests from './pages/DoctorRequests';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -132,10 +134,26 @@ function App() {
             }
           />
           <Route
+            path="/doctor-requests"
+            element={
+              <ProtectedRoute>
+                <DoctorRequests />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/cpassword"
             element={
               <ProtectedRoute>
                 <ChangePassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/doctor-management"
+            element={
+              <ProtectedRoute>
+                <DoctorManagement />
               </ProtectedRoute>
             }
           />

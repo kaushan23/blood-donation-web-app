@@ -28,13 +28,13 @@ const StockResult = () => {
     navigate('/stocks');
   };
 
-  const visitSearchDonor = () => {
-    navigate('/donor-list');
-  };
+  // const visitSearchDonor = () => {
+  //   navigate('/donor-list');
+  // };
 
-  const visitRequestDonor = () => {
-    navigate('/request-report');
-  };
+  // const visitRequestDonor = () => {
+  //   navigate('/request-report');
+  // };
 
   const getStockStatus = (count) => {
     if (count >= 100) return { status: 'Good', color: '#28a745' };
@@ -98,7 +98,7 @@ const StockResult = () => {
               </div>
             </div> */}
 
-            <div className="action-cards">
+            {/* <div className="action-cards">
               <div className="action-card request">
                 <h3>Request Blood</h3>
                 <p>Submit a request for {bloodType} blood units for your medical facility.</p>
@@ -110,7 +110,7 @@ const StockResult = () => {
                 <p>Connect with available {bloodType} donors in your area.</p>
                 <button className="action-btn donor-btn" onClick={visitSearchDonor}>Find Donors</button>
               </div>
-            </div>
+            </div> */}
 
             <div className="compatibility-card">
               <h3>Blood Compatibility</h3>
