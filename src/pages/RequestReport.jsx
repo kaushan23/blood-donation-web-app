@@ -197,9 +197,9 @@ const RequestReport = () => {
         onChange={(e) => handleStatusChange(request.id, e.target.value)}
         className="status-dropdown"
       >
-        <option value="pending">Pending</option>
-        <option value="approved">Available</option>
-        <option value="not_available">Not Available</option>
+        <option value="pending">Issued</option>
+        <option value="approved">Not available</option>
+        <option value="not_available">Not issued</option>
       </select>
     );
   };
